@@ -1,14 +1,31 @@
-# Node.js API
+# Presentation API
 
-## Описание
+Простое REST API на Node.js для получения информации о продуктах.
 
-REST API приложение на Node.js
-
-## Установка
-
-1. Клонировать репозиторий:
+## Установка и запуск
 
 ```bash
-git clone <repository-url>
-cd node-api
+# Клонировать репозиторий
+git clone https://github.com/macrulezru/presentation-api.git
+cd presentation-api
+
+# Установить зависимости
+npm install
+
+# Запустить в режиме разработки
+npm run dev
 ```
+
+## Что умеет
+
+- Получать список всех продуктов
+- Получать конкретный продукт по ID  
+- Получать случайный продукт
+
+## Использование
+
+API доступен по следующим эндпоинтам:
+
+- `GET /api/products` – получить все продукты
+- `GET /api/products/:id` – получить продукт по ID
+- `GET /api/products/random` – получить случайный продукт
