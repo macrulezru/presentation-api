@@ -23,13 +23,16 @@ app.use(express.urlencoded({ extended: true }))
 
 // Основной маршрут
 app.get('/', (req: Request, res: Response) => {
-  const port = process.env.PORT || 3001
-  const baseUrl = `http://localhost:${port}`
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : `http://localhost:${process.env.PORT || 3001}`
 
   res.json({
     message: 'Product & Person API Server',
     version: '1.0.0',
     apiBase: apiPrefix,
+    environment: process.env.NODE_ENV || 'development',
+    host: process.env.VERCEL_URL ? 'Vercel' : 'Local',
     endpoints: {
       getAllProducts: `${apiPrefix}/products`,
       getProductById: `${apiPrefix}/products/:id`,
