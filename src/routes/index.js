@@ -1,16 +1,24 @@
 const express = require('express')
 const router = express.Router()
+const productController = require('../controllers/productController')
 
-// Пример маршрута
+// Основной маршрут API
 router.get('/', (req, res) => {
   res.json({
-    message: 'API is working',
-    version: process.env.API_VERSION,
+    message: 'Product API',
+    endpoints: {
+      getAllProducts: '/products',
+      getProductById: '/products/:id',
+      getRandomProduct: '/randomProduct',
+      searchProducts: '/products/search'
+    }
   })
 })
 
-// Импорт других маршрутов
-// router.use('/users', require('./users'));
-// router.use('/auth', require('./auth'));
+// Маршруты для продуктов
+router.get('/products', productController.getAllProducts)
+router.get('/products/search', productController.searchProducts)
+router.get('/products/:id', productController.getProductById)
+router.get('/randomProduct', productController.getRandomProduct)
 
 module.exports = router
