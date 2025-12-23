@@ -15,7 +15,7 @@ console.log('Checking src/server.ts:', fs.existsSync(srcServerPath))
 // Пытаемся загрузить скомпилированную версию
 if (fs.existsSync(distServerPath)) {
   console.log('Loading compiled server from dist/server.js')
-  require('./dist/server')
+  require('./server')
 } else {
   // Если dist не существует, пытаемся скомпилировать
   console.log('dist/server.js not found. Attempting to compile TypeScript...')
@@ -27,7 +27,7 @@ if (fs.existsSync(distServerPath)) {
 
     if (fs.existsSync(distServerPath)) {
       console.log('Compilation successful. Starting server...')
-      require('./dist/server')
+      require('./server')
     } else {
       throw new Error('Compilation failed: dist/server.js not created')
     }
@@ -37,6 +37,6 @@ if (fs.existsSync(distServerPath)) {
     // Пытаемся запустить через ts-node как запасной вариант
     console.log('Attempting to run via ts-node...')
     require('ts-node/register')
-    require('./src/server')
+    require('./server')
   }
 }

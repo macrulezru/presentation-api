@@ -2,16 +2,15 @@
   "name": "node-api",
   "version": "1.0.0",
   "description": "Node.js API приложение",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node index.js",
-    "dev": "nodemon src/server.ts",
-    "dev:ts": "ts-node-dev src/server.ts",
+    "start": "ts-node server.ts",
+    "dev": "nodemon server.ts",
+    "dev:ts": "ts-node-dev server.ts",
     "test": "jest",
-    "lint": "eslint src",
-    "format": "prettier --write src",
-    "prestart": "npm run build"
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.ts\""
   },
   "keywords": ["api", "nodejs", "express", "typescript"],
   "author": "",
