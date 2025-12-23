@@ -20,3 +20,5 @@ logs/
 
 # Coverage
 coverage/
+
+dist
