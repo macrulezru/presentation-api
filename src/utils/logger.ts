@@ -8,22 +8,27 @@ const logger = winston.createLogger({
     winston.format.json(),
   ),
   transports: [
+    // Всегда используем консольный транспорт
     new winston.transports.Console({
       format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
     }),
   ],
 })
 
-if (process.env.NODE_ENV === 'development') {
+// Добавляем файловые транспорты ТОЛЬКО в development и если можем писать в файловую систему
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
   try {
     const fs = require('fs')
     const path = require('path')
 
+    // Проверяем, можем ли мы создать папку logs
     const logsDir = path.join(process.cwd(), 'logs')
+
     if (!fs.existsSync(logsDir)) {
       fs.mkdirSync(logsDir, { recursive: true })
     }
 
+    // Добавляем файловые транспорты
     logger.add(
       new winston.transports.File({
         filename: 'logs/error.log',
@@ -35,8 +40,15 @@ if (process.env.NODE_ENV === 'development') {
         filename: 'logs/combined.log',
       }),
     )
+
+    logger.info('File logging enabled')
   } catch (error) {
-    // Игнорируем ошибки на Vercel
+    // Если не можем создать папку, просто продолжаем с консольными логами
+    if (error instanceof Error) {
+      logger.warn('File logging disabled: ' + error.message)
+    } else {
+      logger.warn('File logging disabled: Unknown error')
+    }
   }
 }
 
